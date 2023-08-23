@@ -10,4 +10,4 @@ spec:
   project: demo
   source:
     path: gitops/resources/linkerd
-    repoURL: git://git-server.scm:9418/linkerd-examples.git
+    repoURL: git@github.com:asoni90/linkerd-demo.git
