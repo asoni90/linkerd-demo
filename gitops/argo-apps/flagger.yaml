@@ -11,3 +11,4 @@ spec:
   source:
     path: ./kustomize/linkerd
     repoURL: git@github.com:fluxcd/flagger.git
+    targetRevision: main
