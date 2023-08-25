@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flagger
+  namespace: argocd
+spec:
+  destination:
+    namespace: flagger-system
+    server: https://kubernetes.default.svc
+  project: demo
+  source:
+    path: ./kustomize/linkerd
+    repoURL: git@github.com:fluxcd/flagger.git
