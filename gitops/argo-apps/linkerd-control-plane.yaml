@@ -13,7 +13,17 @@ spec:
       parameters:
       - name: identityTrustAnchorsPEM
         value: |
-          -----BEGIN CERTIFICATE----- MIIBjTCCATOgAwIBAgIQPDyHxxgDc9NhkXNR9JFL1DAKBggqhkjOPQQDAjAlMSMwIQYDVQQDExpyb290LmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMzA4MjMxMTQ2NThaFw0yODA4MjExMTQ2NThaMCUxIzAhBgNVBAMTGnJvb3QubGlua2VyZC5jbHVzdGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEG1dSuMMX6udEcaiSSeSyRgGIx/W8hMu2z6U8ZRwKUov9xAjtmL7/HHDAWfph7qJAa4wh9sxLAQOxIl6p Vsg6YqNFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYEFNROf/xvyQcKRmLKRMW/OgPTuWjUMAoGCCqGSM49BAMCA0gAMEUCIQDPEgRmNmGl+NWvSD6znSM1FAifWK12y0/y/y3BCefB4gIgPSy7wdTwfZiKkKxJ8j5orleRCuUhHrGGmgYUszklNqU= -----END CERTIFICATE-----
+          -----BEGIN CERTIFICATE-----
+          MIIBjTCCATOgAwIBAgIQPDyHxxgDc9NhkXNR9JFL1DAKBggqhkjOPQQDAjAlMSMw
+          IQYDVQQDExpyb290LmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMzA4MjMxMTQ2
+          NThaFw0yODA4MjExMTQ2NThaMCUxIzAhBgNVBAMTGnJvb3QubGlua2VyZC5jbHVz
+          dGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEG1dSuMMX6udEcaiS
+          SeSyRgGIx/W8hMu2z6U8ZRwKUov9xAjtmL7/HHDAWfph7qJAa4wh9sxLAQOxIl6p
+          Vsg6YqNFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYD
+          VR0OBBYEFNROf/xvyQcKRmLKRMW/OgPTuWjUMAoGCCqGSM49BAMCA0gAMEUCIQDP
+          EgRmNmGl+NWvSD6znSM1FAifWK12y0/y/y3BCefB4gIgPSy7wdTwfZiKkKxJ8j5o
+          rleRCuUhHrGGmgYUszklNqU=
+          -----END CERTIFICATE-----
       - name: identity.issuer.scheme
         value: kubernetes.io/tls
   destination:
