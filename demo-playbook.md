@@ -1,3 +1,12 @@
+## Prerequisites
+
+- Kubernetes cluster. To quickly launch a Kubernetes cluster you can use [KIND](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+- [linkerd-cli(2.13.3)](https://github.com/linkerd/linkerd2/releases/tag/stable-2.13.3)
+- [kubeseal](https://github.com/bitnami-labs/sealed-secrets/releases)
+- [step-cli](https://smallstep.com/docs/step-cli/installation/)
+- [argocd-cli](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
+
+
 ## Install step-cli to create certificates
 ```
 wget https://dl.smallstep.com/gh-release/cli/docs-cli-install/v0.24.4/step-cli_0.24.4_amd64.deb
@@ -65,6 +74,8 @@ kubectl apply -f gitops/main.yaml
 ```
 argocd app sync main
 ```
+
+## Deploy cert-manager
 ```
 argocd app sync cert-manager
 ```
@@ -74,6 +85,7 @@ for deploy in "cert-manager" "cert-manager-cainjector" "cert-manager-webhook"; \
   do kubectl -n cert-manager rollout status deploy/${deploy}; \
 done
 ```
+
 ## Deploy Sealed Secrets
 ```
 argocd app sync sealed-secrets
@@ -83,6 +95,7 @@ Confirm that sealed-secrets is running:
 ```
 kubectl -n kube-system rollout status deploy/sealed-secrets
 ```
+
 ## Create mTLS trust anchor
 ```
 step certificate create root.linkerd.cluster.local sample-trust.crt sample-trust.key \
@@ -95,12 +108,32 @@ Confirm the details (encryption algorithm, expiry date, SAN etc.) of the new tru
 ```
 step certificate inspect sample-trust.crt
 ```
+
+Now create the SealedSecret resource to store the encrypted trust anchor:
+```
+kubectl create ns linkerd
+kubectl -n linkerd create secret tls linkerd-trust-anchor \
+  --cert sample-trust.crt \
+  --key sample-trust.key \
+  --dry-run=client -oyaml | \
+kubeseal --controller-name=sealed-secrets -oyaml - | \
+kubectl patch -f - \
+  -p '{"spec": {"template": {"type":"kubernetes.io/tls", "metadata": {"labels": {"linkerd.io/control-plane-component":"identity", "linkerd.io/control-plane-ns":"linkerd"}, "annotations": {"linkerd.io/created-by":"linkerd/cli stable-2.12.0"}}}}}' \
+  --dry-run=client \
+  --type=merge \
+  --local -oyaml > gitops/resources/linkerd/trust-anchor.yaml
+```
+
+
 Commit and push the new trust anchor secret to Github
 ```
 git add gitops/resources/linkerd/trust-anchor.yaml
 git commit -m "update encrypted trust anchor"
 git push
 ```
+
+## Deploy linkerd-bootstrap
+
 Synchronize the linkerd-bootstrap application
 ```
 argocd app sync linkerd-bootstrap
