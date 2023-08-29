@@ -20,3 +20,6 @@ spec:
   destination:
     namespace: flagger-system
     server: https://kubernetes.default.svc
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
