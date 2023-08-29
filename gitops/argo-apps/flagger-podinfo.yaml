@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flagger-podinfo
+  namespace: argocd
+spec:
+  destination:
+    namespace: test
+    server: https://kubernetes.default.svc
+  project: demo
+  source:
+    path: gitops/resources/flagger/podinfo
+    repoURL: git@github.com:asoni90/linkerd-demo.git
