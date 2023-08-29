@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flagger
+  namespace: argocd
+spec:
+  project: demo
+  source:
+    chart: flagger
+    repoURL: https://flagger.app
+    targetRevision: 1.33.0
+    helm:
+      parameters:
+      - name: meshProvider
+        value: linkerd
+      - name: metricsServer
+        value: http://prometheus.linkerd-viz:9090
+      - name: linkerdAuthPolicy.create
+        value: true
+  destination:
+    namespace: flagger-system
+    server: https://kubernetes.default.svc
