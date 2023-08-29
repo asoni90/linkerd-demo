@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flagger-podinfo-canary
+  namespace: argocd
+spec:
+  destination:
+    namespace: test
+    server: https://kubernetes.default.svc
+  project: demo
+  source:
+    path: gitops/resources/flagger/canary
+    repoURL: git@github.com:asoni90/linkerd-demo.git
