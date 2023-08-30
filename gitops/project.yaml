@@ -32,9 +32,17 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: linkerd
     server: https://kubernetes.default.svc
+  - namespace: flagger-system
+    server: https://kubernetes.default.svc
+  - namespace: linkerd-viz
+    server: https://kubernetes.default.svc
+  - namespace: test
+    server: https://kubernetes.default.svc
   sourceRepos:
   - https://charts.jetstack.io
   - https://github.com/BuoyantIO/emojivoto.git
   - https://helm.linkerd.io/stable
   - https://bitnami-labs.github.io/sealed-secrets
   - git@github.com:asoni90/linkerd-demo.git
+  - git@github.com:fluxcd/flagger.git
+  - https://flagger.app

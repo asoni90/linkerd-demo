@@ -9,5 +9,5 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: ./gitops/argo-apps
+    path: ./gitops/argo-apps/linkerd
     repoURL: git@github.com:asoni90/linkerd-demo.git
