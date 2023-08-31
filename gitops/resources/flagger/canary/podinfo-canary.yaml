@@ -42,6 +42,30 @@ spec:
       thresholdRange:
         max: 500
       interval: 30s
+    - name: "404s percentage"
+      threshold: 3
+      query: |
+        100 - sum(
+            rate(
+                response_total{
+                    namespace="test",
+                    deployment="podinfo",
+                    status_code!="404",
+                    direction="inbound"
+                }[1m]
+            )
+        )
+        /
+        sum(
+            rate(
+                response_total{
+                    namespace="test",
+                    deployment="podinfo",
+                    direction="inbound"
+                }[1m]
+            )
+        )
+        * 100
     # testing (optional)
     webhooks:
       - name: acceptance-test
